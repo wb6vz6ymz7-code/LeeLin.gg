@@ -24,6 +24,35 @@ local CloudyKernel=[========[
 local bootstrapText,bodyText,expectedGameId,fromTeleport,revision=CloudyKernel,CloudySource,CloudyGameId,CloudyTeleported,CloudyRevision
 local env=getgenv()
 if not game:IsLoaded() then game.Loaded:Wait() end
+do
+    local launching = getgenv().LeeLinAutoRunLaunching == true
+    local fromTp = (typeof(CloudyTeleported) == "boolean" and CloudyTeleported) or false
+    if launching or fromTp then
+        local Players = game:GetService("Players")
+        local lp = Players.LocalPlayer
+        local t0 = os.clock()
+        while not lp and os.clock() - t0 < 15 do task.wait(0.1); lp = Players.LocalPlayer end
+        if lp then
+            pcall(function() lp:WaitForChild("PlayerGui", 20) end)
+            local deadline = os.clock() + 6
+            while os.clock() < deadline do
+                local ch = lp.Character
+                if ch and ch:FindFirstChildOfClass("Humanoid") then break end
+                local pg = lp:FindFirstChild("PlayerGui")
+                if pg and #pg:GetChildren() >= 3 then break end
+                task.wait(0.2)
+            end
+            task.wait(1.25)
+        end
+    else
+        -- normal execute: still give PlayerGui a moment so competitor UI can spawn
+        local Players = game:GetService("Players")
+        local lp = Players.LocalPlayer
+        if lp then pcall(function() lp:WaitForChild("PlayerGui", 10) end) end
+        task.wait(0.35)
+    end
+end
+
 if expectedGameId and game.GameId~=expectedGameId then return end
 expectedGameId=expectedGameId or game.GameId
 local current=env.LeeLinRebuild
@@ -77,6 +106,24 @@ function state:Queue()
     local source=string.format([==[
 if not game:IsLoaded() then game.Loaded:Wait() end
 getgenv().LeeLinAutoRunLaunching=true
+do
+    local Players = game:GetService("Players")
+    local lp = Players.LocalPlayer
+    local t0 = os.clock()
+    while not lp and os.clock() - t0 < 15 do task.wait(0.1); lp = Players.LocalPlayer end
+    if lp then
+        pcall(function() lp:WaitForChild("PlayerGui", 20) end)
+        local deadline = os.clock() + 6
+        while os.clock() < deadline do
+            local ch = lp.Character
+            if ch and ch:FindFirstChildOfClass("Humanoid") then break end
+            local pg = lp:FindFirstChild("PlayerGui")
+            if pg and #pg:GetChildren() >= 3 then break end
+            task.wait(0.2)
+        end
+        task.wait(1.25)
+    end
+end
 local ok, err = pcall(function()
     local src = game:HttpGet(%q)
     assert(type(src)=="string" and #src>0, "empty response from autorun url")
@@ -72654,6 +72701,35 @@ local CloudyRevision="4be64451c128c3f9267fb5445a56d786a803b2fcb900e7b8a8421a514b
 local bootstrapText,bodyText,expectedGameId,fromTeleport,revision=CloudyKernel,CloudySource,CloudyGameId,CloudyTeleported,CloudyRevision
 local env=getgenv()
 if not game:IsLoaded() then game.Loaded:Wait() end
+do
+    local launching = getgenv().LeeLinAutoRunLaunching == true
+    local fromTp = (typeof(CloudyTeleported) == "boolean" and CloudyTeleported) or false
+    if launching or fromTp then
+        local Players = game:GetService("Players")
+        local lp = Players.LocalPlayer
+        local t0 = os.clock()
+        while not lp and os.clock() - t0 < 15 do task.wait(0.1); lp = Players.LocalPlayer end
+        if lp then
+            pcall(function() lp:WaitForChild("PlayerGui", 20) end)
+            local deadline = os.clock() + 6
+            while os.clock() < deadline do
+                local ch = lp.Character
+                if ch and ch:FindFirstChildOfClass("Humanoid") then break end
+                local pg = lp:FindFirstChild("PlayerGui")
+                if pg and #pg:GetChildren() >= 3 then break end
+                task.wait(0.2)
+            end
+            task.wait(1.25)
+        end
+    else
+        -- normal execute: still give PlayerGui a moment so competitor UI can spawn
+        local Players = game:GetService("Players")
+        local lp = Players.LocalPlayer
+        if lp then pcall(function() lp:WaitForChild("PlayerGui", 10) end) end
+        task.wait(0.35)
+    end
+end
+
 if expectedGameId and game.GameId~=expectedGameId then return end
 expectedGameId=expectedGameId or game.GameId
 local current=env.LeeLinRebuild
@@ -72707,6 +72783,24 @@ function state:Queue()
     local source=string.format([==[
 if not game:IsLoaded() then game.Loaded:Wait() end
 getgenv().LeeLinAutoRunLaunching=true
+do
+    local Players = game:GetService("Players")
+    local lp = Players.LocalPlayer
+    local t0 = os.clock()
+    while not lp and os.clock() - t0 < 15 do task.wait(0.1); lp = Players.LocalPlayer end
+    if lp then
+        pcall(function() lp:WaitForChild("PlayerGui", 20) end)
+        local deadline = os.clock() + 6
+        while os.clock() < deadline do
+            local ch = lp.Character
+            if ch and ch:FindFirstChildOfClass("Humanoid") then break end
+            local pg = lp:FindFirstChild("PlayerGui")
+            if pg and #pg:GetChildren() >= 3 then break end
+            task.wait(0.2)
+        end
+        task.wait(1.25)
+    end
+end
 local ok, err = pcall(function()
     local src = game:HttpGet(%q)
     assert(type(src)=="string" and #src>0, "empty response from autorun url")
